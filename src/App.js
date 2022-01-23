@@ -1,22 +1,25 @@
-import logo from './logo.svg';
 import './App.css';
+import useDeviceId from './hooks/useDeviceId';
+import useLocation from './hooks/useLocation';
+import DisplayData from './components/DisplayData';
+import useIdle from './hooks/useIdle';
 
 function App() {
+
+  const logout=()=>console.log('user logout');
+
+  const {deviceId}=useDeviceId()
+  const {locationData}=useLocation();
+  const {isIdle}=useIdle({onIdle:logout,idleTime:0.1})  
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+          {/* <DisplayData 
+            deviceId={deviceId} 
+            locationData={locationData} 
+          /> */}
+          { isIdle ? 'User will be logged out' : 'User is not idle'}
       </header>
     </div>
   );
